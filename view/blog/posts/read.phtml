@@ -1,0 +1,26 @@
+<?=
+$this->headTitle()->append($post->getTitle());
+$this->headMeta()->appendName('keywords', implode(', ', $post->getKeywordsArray()))
+				->appendName('description', $post->getLead());
+?>		
+				
+<?= $this->partial('partials/post', array('post' => $post,
+										'closestPost'	=> $closestPosts
+)); ?>
+
+<div id="post-read-right">
+	<section id="posts-categories">
+		<h1>Catégories</h1>
+		<ul>
+			<?php foreach($categories as $category):?>
+				<?= $this->partial('rows/category', array('category' => $category)) ?>
+			<?php endforeach; ?>
+		</ul>
+	</section>
+	
+	<?php if(count($recentPosts) > 0): ?>
+		<?= $this->partial('partials/recent-posts', array('posts' => $recentPosts,
+															'sectionTitle' => 'Dans la même catégorie',
+		)) ?>
+	<?php endif; ?>
+</div>

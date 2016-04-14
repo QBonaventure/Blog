@@ -1,0 +1,26 @@
+<div id="post-<?= $post->getId() ?>" class="row <?= $post->getStatus() ?>">
+	<div class="cell date">
+		<?= $post->getCreationDate()->format('Y-m-d H:i') ?>
+	</div><!--  
+	--><div class="cell category">
+		<?= $post->getCategory() ?>
+	</div><!--  
+	--><div class="cell title">
+		<a href="<?= $this->url('administration/posts/edit', array('id' => $post->getId())) ?>"> 
+			<?= $post->getTitle(); ?>
+		</a>
+	</div><!--  
+	--><div class="cell controls">
+		<div class="option deleteSwither">
+			<img src="/css/buttons/delete.png" class="switcher" alt="delete" />
+		</div><!--  
+	--><div class="option statusSwitcher">
+			<?php if($post->getStatus() == 'published'): ?>
+				<img src="/css/buttons/down.png" class="switcher"
+					alt="unpublish" />
+			<?php elseif($post->getStatus() == 'unpublished' or $post->getStatus() == 'draft'): ?>
+			<img src="/css/buttons/up.png" class="switcher" alt="publish" />
+			<?php endif; ?>
+		</div>
+	</div>
+</div>

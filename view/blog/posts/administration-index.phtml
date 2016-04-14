@@ -1,0 +1,8 @@
+<?= $this->administrationMenu() ?>
+<?= $this->administrationMenu('posts') ?>
+
+
+<div id="postsTable" class="ten-cols left">
+	<?php $this->partialLoop()->setObjectKey('post') ?>
+	<?= $this->partialLoop('rows/administration-post', $posts) ?>
+</div>
