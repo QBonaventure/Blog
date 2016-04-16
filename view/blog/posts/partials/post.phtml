@@ -1,0 +1,31 @@
+<article id="post-read">
+	<header>
+		<h1><?= $post->getTitle() ?></h1>
+		<span class="category"><a href="<?= $this->url('blog/categories', array('categoryId' => $post->getCategoryId(), 'categoryName' => $this->toUri($post->getCategory()))) ?>"><?= $post->getCategory() ?></a></span> -
+		<span class="date"><?= ucfirst($post->getPublicationDate()->format('\l\e d/m/Y à H:i')) ?></span>
+	</header>
+	<?= $post->getBodyHTML() ?>
+	<footer>
+		<section id="closest-posts">
+			<?php if($closestPost['following_post']): ?>
+				<div class="following-post">
+					<span><?= $this->translate('Following article&nbsp;:') ?></span>
+					<br />
+					<a href="<?= $this->url('blog/read', array('id' => $closestPost['following_post']->id, 'title' => $this->toUri($closestPost['following_post']->title))) ?>">
+						<?= $closestPost['following_post']->title ?>
+					</a>
+				</div>
+			<?php endif; ?>
+			<?php if($closestPost['preceding_post']): ?>
+				<div class="preceding-post">
+					<span><?= $this->translate('Preceding article&nbsp;:') ?></span>
+					<br />
+					<a href="<?= $this->url('blog/read', array('id' => $closestPost['preceding_post']->id, 'title' => $this->toUri($closestPost['preceding_post']->title))) ?>">
+						<?= $closestPost['preceding_post']->title ?>
+					</a>
+				</div>
+			<?php endif; ?>
+		</section>
+	</footer>
+</article>
+

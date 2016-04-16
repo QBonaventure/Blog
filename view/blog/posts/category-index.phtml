@@ -1,0 +1,5 @@
+<section>
+	<h1>Posts de la catégorie &#171;&nbsp;<?= $category['name'] ?>&nbsp;&#187;</h1>
+	<?php $this->partialLoop()->setObjectKey('post') ?>
+	<?= $this->partialLoop('partials/post-lead', $posts) ?>
+</section>

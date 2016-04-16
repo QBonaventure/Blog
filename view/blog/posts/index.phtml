@@ -1,0 +1,21 @@
+<?php $lastPost	= array_shift($posts);
+$this->headMeta()
+		->appendName('title', 'djkfhskdjfh');
+$this->headTitle()->append('Blog / Index');
+?>
+<section id="last-post">
+	<?= $this->partial('partials/post-lead', array('post' => $lastPost)) ?>
+</section>
+
+
+<?= $this->partial('partials/recent-posts', array('posts' => $posts,
+													'sectionTitle' => 'Posts récents',)) ?>
+
+<section id="posts-categories">
+	<h1>Catégories</h1>
+	<ul>
+		<?php foreach($categories as $category):?>
+			<?= $this->partial('rows/category', array('category' => $category)) ?>
+		<?php endforeach; ?>
+	</ul>
+</section>

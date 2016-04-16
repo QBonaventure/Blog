@@ -1,0 +1,14 @@
+<article>
+	<header>
+		<h1>
+			<a href="<?= $this->url('blog/read', array('id' => $post->getId(), 'title' => $this->toUri($post->getTitle()))) ?>">
+				<?= $post->getTitle() ?>
+			</a>
+		</h1>
+	</header>
+	<p><?= $post->getLead() ?></p>
+	<footer>
+		<span class="category"><?= $post->getCategory() ?></span>
+		<span class="date"><?= $post->getCreationDate()->format('Y-m-d H:i') ?></span>
+	</footer>
+</article>
