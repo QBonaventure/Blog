@@ -12,6 +12,7 @@ use Blog\Hydrator\PostHydrator;
 use Blog\Form\Posts\CreateForm;
 
 use Blog\Model\Post;
+use Blog\Model\PostInterface;
 
 
 class PostService implements PostServiceInterface, EventManagerAwareInterface {
@@ -45,6 +46,7 @@ class PostService implements PostServiceInterface, EventManagerAwareInterface {
 		return $this->postMapper->findAll(array(), $limit);
 	}
 
+	
 
 	/**
 	 * Returns Post with the corrsponding ID
@@ -98,12 +100,11 @@ class PostService implements PostServiceInterface, EventManagerAwareInterface {
 // 	}
 
 	/**
-	 * Returns the previous and next posts published title and id, if they exist.
+	 * Returns the previous and next published posts' title and id, if they exist.
 	 * 
 	 * @param int $postId
 	 * @return array[]
 	 */
-	
 	public function getClosestPosts($postId) {
 		if(!is_int($postId)) {
 			throw new \InvalidArgumentException('Post id must be an integer');
@@ -115,10 +116,24 @@ class PostService implements PostServiceInterface, EventManagerAwareInterface {
 		);
 	}
 	
+	
+	/**
+	 * Save a new Post with $values into the database, then returns the new Post object
+	 * 
+	 * @param array $values
+	 * @return \Blog\Model\PostInterface
+	 */
 	public function savePost($values) {
 		return $this->postMapper->savePost($values);
 	}
 	
+	
+	/**
+	 * Update changes made in Post into the database, then return the update Post object
+	 * @param array $updates
+	 * @param PostInterface $originalPost
+	 * @return PostInterface
+	 */
 	public function updatePost($updates, $originalPost) {
 		$result	= $this->postMapper->updatePost($updates, $originalPost);
 		return $this->createPost($result);
