@@ -14,7 +14,6 @@ use Blog\Form\Posts\CreateForm;
 use Blog\Model\Post;
 
 
-
 class PostService implements PostServiceInterface, EventManagerAwareInterface {
 
 	/**
@@ -36,33 +35,81 @@ class PostService implements PostServiceInterface, EventManagerAwareInterface {
       * @param \Blog\Mapper\PostMapperInterface $postMapper
       */
 	public function __construct(PostMapperInterface $postMapper
-//      							, EventManagerInterface $eventManager
 								, PostHydrator $hydrator
 								) {
 		$this->postMapper	= $postMapper;
 		$this->postHydrator	= $hydrator;
-// 		$this->eventManager	= $evetManager;
 	}
 	
 	public function getAllPosts($limit = null) {
 		return $this->postMapper->findAll(array(), $limit);
 	}
-	
+
+
+	/**
+	 * Returns Post with the corrsponding ID
+	 * 
+	 * @param int $postId
+	 * @return PostInterface
+	 * @throws \InvalidArgumentException
+	 */
 	public function getPost($postId) {
-		return $this->postMapper->find($postId);
+		if(!is_int($postId)) {
+			throw new \InvalidArgumentException('Post id must be an integer');
+		}
+		$postArray	= $this->postMapper->find($postId);
+		
+		return $this->createPost($postArray);
 	}
 	
+
+	/**
+	 * Returns a number of $limit of Post matching $criterias
+	 * 
+	 * @param array $criterias
+	 * @param int $limit
+	 * @return PostInterface[]
+	 * @throws \InvalidArgumentException
+	 */
 	public function getPublishedPosts($criterias = array(), $limit = null) {
-		return $this->postMapper->findInPublishedPosts($criterias, $limit);
+		if(!is_array($criterias)) {
+			throw new \InvalidArgumentException('Optionnal criterias argument must be an array');
+		}
+		if(!is_null($limit) && (!is_int($limit) || $limit <= 0)) {
+			throw new \InvalidArgumentException('Optionnal limit argument must be an integer superior to 0');
+		}
+		$result	= $this->postMapper->findInPublishedPosts($criterias, $limit);
+		
+		if($result->count() == 0)
+			return null;
+		
+     	foreach($result as $index => $postArray) {
+	     	$postsArray[$index] = $this->createPost($postArray);
+     	}
+     	
+     	return $postsArray;
 	}
 	
-	public function getPublishedPostsByCategory($category, $limit = null) {
-		return $this->postMapper->findAll(array('category_id' => $category), $limit);
-	}
+	
+	
+	
+// 	public function getPublishedPostsByCategory($category, $limit = null) {
+// 		return $this->postMapper->findAll(array('category_id' => $category), $limit);
+// 	}
+
+	/**
+	 * Returns the previous and next posts published title and id, if they exist.
+	 * 
+	 * @param int $postId
+	 * @return array[]
+	 */
 	
 	public function getClosestPosts($postId) {
-		$result	= $this->postMapper->getClosestPosts($postId);
+		if(!is_int($postId)) {
+			throw new \InvalidArgumentException('Post id must be an integer');
+		}
 		
+		$result	= $this->postMapper->getClosestPosts($postId);
 		return array('preceding_post' => json_decode($result['preceding_post']),
 					 'following_post' => json_decode($result['following_post'])
 		);
@@ -73,7 +120,8 @@ class PostService implements PostServiceInterface, EventManagerAwareInterface {
 	}
 	
 	public function updatePost($updates, $originalPost) {
-		return $this->postMapper->updatePost($updates, $originalPost);
+		$result	= $this->postMapper->updatePost($updates, $originalPost);
+		return $this->createPost($result);
 	}
 	
 	public function publishPost($postId, $userId) {
