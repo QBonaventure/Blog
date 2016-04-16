@@ -1,8 +1,0 @@
-
-<section id="recent-posts">
-	<h1><?= $sectionTitle ?></h1>
-	<ul>
-		<?php $this->partialLoop()->setObjectKey('post') ?>
-		<?= $this->partialLoop('rows/post', $posts) ?>
-	</ul>
-</section>
