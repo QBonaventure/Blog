@@ -84,16 +84,8 @@ use Zend\Db\Sql\TableIdentifier;
      	     	
      	$stmt	= $sql->prepareStatementForSqlObject($select);
      	$result	= $stmt->execute();
-
-//      	$postsArray	= json_decode($result->current()['posts'], true);
-		if($result->count() == 0)
-			return null;
-		
-     	foreach($result as $index => $post) {
-	     	$postsArray[$index] = $this->hydrator->hydrate($post, new Post());
-     	}
      	
-		return $postsArray;
+		return $result;
      }
 
      /**

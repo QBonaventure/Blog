@@ -22,11 +22,13 @@ class PostsControllerFactory implements FactoryInterface
 		$authService        = $realServiceLocator->get('AuthService');
 		$viewHelper			= $realServiceLocator->get('viewhelpermanager');
 		$viewRenderer		= $realServiceLocator->get('ViewRenderer');
+		$cryptography		= $realServiceLocator->get('CryptographyInterface');
 		
 		return new PostsController($postsService
          							, $authService
          							, $viewHelper
 									, $viewRenderer
+									, $cryptography
          	);
      }
  }

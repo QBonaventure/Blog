@@ -21,17 +21,20 @@ class PostsController extends AbstractActionController
 	protected $parser;
 	protected $viewHelper;
 	protected $viewRenderer;
+	protected $cryptographyService;
 	
 	public function __construct(PostServiceInterface $postsService
 								, AuthenticationService $authService
 								, HelperPluginManager $viewHelper
 								, TreeRendererInterface $viewRenderer
+								, $cryptographyService
 			)
 	{
 		$this->postsService	= $postsService;
 		$this->authService	= $authService;
 		$this->viewHelper	= $viewHelper;
 		$this->viewRenderer	= $viewRenderer;
+		$this->cryptographyService	= $cryptographyService;
 
 		$this->viewHelper->get('headScript')->appendFile('/js/blog/posts.js', 'text/javascript');
 		$this->viewHelper->get('headLink')->appendStylesheet('/css/blog/posts.css');
@@ -41,7 +44,7 @@ class PostsController extends AbstractActionController
 	{
 		$posts				= $this->postsService->getPublishedPosts(array(), 6);
 		$postsCategories	= $this->postsService->getCategories();
-
+echo $this->cryptographyService->encrypt('hello world !');
 		$viewModel = new ViewModel(
 				array(
 						'posts' => $posts,
