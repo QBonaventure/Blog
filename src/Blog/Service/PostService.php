@@ -59,9 +59,9 @@ class PostService implements PostServiceInterface, EventManagerAwareInterface {
 		if(!is_int($postId)) {
 			throw new \InvalidArgumentException('Post id must be an integer');
 		}
-		$postArray	= $this->postMapper->find($postId);
-		
-		return $this->createPost($postArray);
+		$post	= $this->postMapper->find($postId);
+
+		return $post;
 	}
 	
 
@@ -171,6 +171,8 @@ class PostService implements PostServiceInterface, EventManagerAwareInterface {
 	}
 	
 	public function createPost($values = array()) {
+		if(is_object($values))
+			$values	= (array) $values;
 		$post	= $this->postHydrator->hydrate($values, new Post());
 		
 		return $post;

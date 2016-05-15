@@ -11,7 +11,6 @@ class KeywordFormHydrator extends ClassMethods implements HydratorInterface
 	}
 	
 	public function extract($object) {
-		var_dump($object);
 // 		$result['word']	= $object->getWord();
 // 		$result['id']		= $object->getid();
 // 		$result['content']	= $object->getBody();

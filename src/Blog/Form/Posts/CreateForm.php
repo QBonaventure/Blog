@@ -19,7 +19,10 @@ class CreateForm extends Form
         $this->dbAdapter	= $dbAdapter;
         
         $hydrator	= new PostFormHydrator();
-        $this->setAttributes(array('method' => 'post',))
+        $this->setAttributes(array('method' => 'post',
+        							'id'	=> 'create-post',
+        							'name'	=> 'create-post',
+        ))
         	 ->setHydrator($hydrator)
         	 ->setInputFilter(new InputFilter());
 

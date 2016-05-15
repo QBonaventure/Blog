@@ -1,21 +1,37 @@
 <?= $this->administrationMenu() ?>
 <?= $this->render('partials/posts-menu.phtml'); ?>
 
-<section id="message-form" class="right">
+<section id="message-form">
 	<?php 
     	$form->setAttribute('action', $this->url('administration/posts/create'));
     	$form->prepare();
     	$postFieldset	= $form->get('post'); ?>
 
 	<?= $this->form()->openTag($form); ?>
-	<?= $this->formCollection($postFieldset->get('keywords')) ?>
-	<?= $this->formRow($postFieldset->get('add_keyword')) ?>
-	<?= $this->formRow($postFieldset->get('category_id')) ?>
-	<?= $this->formRow($postFieldset->get('title')) ?>
-	<?= $this->formRow($postFieldset->get('lead')) ?>
-	<?= $this->formRow($postFieldset->get('body')) ?>
-	<?= $this->formRow($form->get('preview')) ?>
-	<?= $this->formSubmit($form->get('submit')) ?>
+	<div id="keywords-fieldset">
+		<?= $this->formCollection($postFieldset->get('keywords')) ?><!--
+		--><?= $this->formRow($postFieldset->get('add_keyword')) ?>
+	</div>
+	<div id="category-fieldset">
+		<?= $this->formLabel($postFieldset->get('category_id')) ?>
+		<?= $this->formSelect($postFieldset->get('category_id')) ?>
+	</div>
+	<div id="title-fieldset">
+		<?= $this->formLabel($postFieldset->get('title')) ?>
+		<?= $this->formText($postFieldset->get('title')) ?>
+	</div>
+	<div id="lead-fieldset">
+		<?= $this->formLabel($postFieldset->get('lead')) ?>
+		<?= $this->formText($postFieldset->get('lead')) ?>
+	</div>
+	<div id="body-fieldset">
+		<?= $this->formLabel($postFieldset->get('body')) ?>
+		<?= $this->formTextarea($postFieldset->get('body')) ?>
+	</div>
+	<div class="form-controls">
+		<?= $this->formButton($form->get('preview')) ?>
+		<?= $this->formSubmit($form->get('submit')) ?>
+	</div>
 	<?= $this->formElementerrors($form) ?>
 	<?= $this->form()->closeTag($form); ?>
 

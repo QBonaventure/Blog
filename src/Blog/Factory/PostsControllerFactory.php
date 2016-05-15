@@ -4,7 +4,6 @@ namespace Blog\Factory;
 use Blog\Controller\PostsController;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
-use Inner\Parser\Wiki as WikiParser;
 
 class PostsControllerFactory implements FactoryInterface
 {

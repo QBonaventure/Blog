@@ -76,11 +76,12 @@ use Zend\Db\Sql\TableIdentifier;
      	$sql	= new SQL($this->dbAdapter);
      	$select	= $sql->select();
      	$select->from(new TableIdentifier('mv_published_posts', 'blog'));
-     	
+
      	if($criterias)
      		$select->where($criterias);
      	if($limit)
 	     	$select->limit($limit);
+     	$select->order('publication_date DESC');
      	     	
      	$stmt	= $sql->prepareStatementForSqlObject($select);
      	$result	= $stmt->execute();

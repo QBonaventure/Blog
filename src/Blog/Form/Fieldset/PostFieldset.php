@@ -108,8 +108,10 @@ class PostFieldset extends Fieldset implements InputFilterProviderInterface
                 'name' => 'body',
                 'type' => 'Zend\Form\Element\Textarea',
                 'attributes' => array(
+//                 	'data-adaptheight' => null,
                     'placeholder' => 'Body',
                     'required' => 'required',
+//                 	'onkeyup'	=> 'textAreaAdjust(this)',
                 ),
                 'options' => array(
                     'label' => 'Body',

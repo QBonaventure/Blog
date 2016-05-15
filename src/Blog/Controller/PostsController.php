@@ -5,7 +5,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 
 use Zend\View\Model\ViewModel;
 
-use Zend\Authentication\AuthenticationService;
+use Zend\Authentication\AuthenticationServiceInterface;
 
 use Blog\Service\PostServiceInterface;
 use Zend\View\HelperPluginManager;
@@ -24,7 +24,7 @@ class PostsController extends AbstractActionController
 	protected $cryptographyService;
 	
 	public function __construct(PostServiceInterface $postsService
-								, AuthenticationService $authService
+								, AuthenticationServiceInterface $authService
 								, HelperPluginManager $viewHelper
 								, TreeRendererInterface $viewRenderer
 								, $cryptographyService
@@ -44,7 +44,7 @@ class PostsController extends AbstractActionController
 	{
 		$posts				= $this->postsService->getPublishedPosts(array(), 6);
 		$postsCategories	= $this->postsService->getCategories();
-echo $this->cryptographyService->encrypt('hello world !');
+
 		$viewModel = new ViewModel(
 				array(
 						'posts' => $posts,
@@ -98,10 +98,11 @@ echo $this->cryptographyService->encrypt('hello world !');
 	
 	
 	public function readAction() {
-    	$postId	= $this->getEvent()->getRouteMatch()->getParam('id');
+    	$postId	= (int) $this->getEvent()->getRouteMatch()->getParam('id');
     	
 		$post 				= $this->postsService->getPost($postId);
 		$postsCategories	= $this->postsService->getCategories();
+		
 		$recentPosts		= $this->postsService->getPublishedPosts(array('category_id = '.$post->getCategoryId(),
 																			'id != '.$post->getId()
 		));
@@ -150,7 +151,7 @@ echo $this->cryptographyService->encrypt('hello world !');
 
 		$form	= $this->postsService->getCreateForm();
 		
-    	$originalPost	= $this->postsService->getPost($postId);
+    	$originalPost	= $this->postsService->getPost((int) $postId);
 
     	if ($request->isPost())
     	{
