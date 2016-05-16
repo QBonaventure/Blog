@@ -210,7 +210,7 @@ return array(
 		'connection_class'  => 'plain',
 		'connection_config' => array(
 				'username' => 'quentin@bonaventure.xyz',
-				'password' => 'bNMpz2kjEf8nlH71sHESXEWf2sSrQp',
+				'password' => '',
 				'ssl'	=> 'tls',
 		),
 	),
