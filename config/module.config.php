@@ -204,6 +204,7 @@ return array(
             ),
         ),
     ),
+<<<<<<< HEAD
 // 	'mail' => array(
 // 		'host'              => 'imap.bonaventure.xyz',
 // 		'port'				=> 587,
@@ -214,4 +215,16 @@ return array(
 // 				'ssl'	=> 'tls',
 // 		),
 // 	),
+=======
+	'mail' => array(
+		'host'              => 'imap.bonaventure.xyz',
+		'port'				=> 587,
+		'connection_class'  => 'plain',
+		'connection_config' => array(
+				'username' => 'quentin@bonaventure.xyz',
+				'password' => '',
+				'ssl'	=> 'tls',
+		),
+	),
+>>>>>>> branch 'master' of https://github.com/QBonaventure/Blog.git
 );
