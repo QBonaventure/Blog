@@ -10,5 +10,4 @@ class AdministrationMenu extends AbstractHelper {
 			return $this->getView()->render('blog/administration/partials/'.$subMenu.'-menu');
 		return $this->getView()->render('blog/administration/partials/menu');
 	}
-	
 }
