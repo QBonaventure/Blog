@@ -46,7 +46,6 @@ class PostService implements PostServiceInterface, EventManagerAwareInterface {
 		return $this->postMapper->findAll(array(), $limit);
 	}
 
-	
 
 	/**
 	 * Returns Post with the corrsponding ID
