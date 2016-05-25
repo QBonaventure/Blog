@@ -1,4 +1,4 @@
-<?=
+<?php
 $this->headTitle()->append($post->getTitle());
 $this->headMeta()->appendName('keywords', implode(', ', $post->getKeywordsArray()))
 				->appendName('description', $post->getLead());

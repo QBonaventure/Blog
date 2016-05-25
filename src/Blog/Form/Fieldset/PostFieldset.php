@@ -51,7 +51,7 @@ class PostFieldset extends Fieldset implements InputFilterProviderInterface
         $this->add(array(
                 'name' => 'category_id',
                 'type' => 'Zend\Form\Element\Select',
-                'tabindex' =>2,
+                'tabindex' => 2,
                 'options' => array(
                         'label' => 'Category',
                         'empty_option' => 'Please select a category',
