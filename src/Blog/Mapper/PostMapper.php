@@ -63,8 +63,9 @@ use Zend\Db\Sql\TableIdentifier;
 
      	$prepareStmt->prepare($sql);
 		$result = $prepareStmt->execute(array('id'	=> $id));
+		var_dump($result);
 		$newPostObject	= $this->hydrator->hydrate($result->current(), new Post());
-     	
+		
 		return $newPostObject;
 	}
 
